@@ -14,13 +14,17 @@ class EventsExamplePlugin : JavaPlugin()
             .withPlugin(this)
             .listenTo<PlayerJoinEvent>()
             .filter { it.player.allowFlight }
+            .cancelOn { it.player.name == "cancelled name" } // will be kicked for "Event cancelled" if the name equals to "cancelled name"
             .on {
+                // this message will only be sent if the player has allowFlight.
+                // this on block will still be called even if the player's name is "cancelled name".
                 it.player.sendMessage("You are able to fly!")
             }
 
         Events
             .listenTo<BlockBreakEvent>()
             .cancelOn {
+                // this will cancel the event if the player does not have the permission "events.break"
                 !it.player.hasPermission("events.break")
             }
 
@@ -32,7 +36,8 @@ class EventsExamplePlugin : JavaPlugin()
                 .listenTo(type)
                 .filter { it.block.type == Material.ACACIA_DOOR }
                 .on {
-                    it.block.type = Material.AIR
+                    // this will change the block type on BlockBreakEvent or BlockPlaceEvent if the type is ACACIA_DOOR
+                    it.block.type = Material.TRAPPED_CHEST
                 }
         }
     }
