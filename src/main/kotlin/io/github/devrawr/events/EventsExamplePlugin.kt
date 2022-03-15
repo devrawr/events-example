@@ -11,7 +11,8 @@ class EventsExamplePlugin : JavaPlugin()
     override fun onEnable()
     {
         Events
-            .withPlugin(this)
+            .withPlugin(this) // without this, the listeners will be registered to the first registered plugin.
+            // if you call .withPlugin(), it will unregister all previous listeners and register them to the provided plugin.
             .listenTo<PlayerJoinEvent>()
             .filter { it.player.allowFlight }
             .cancelOn { it.player.name == "cancelled name" } // will be kicked for "Event cancelled" if the name equals to "cancelled name"
