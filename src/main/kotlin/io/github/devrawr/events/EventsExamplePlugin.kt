@@ -16,7 +16,7 @@ class EventsExamplePlugin : JavaPlugin()
             .listenTo<PlayerJoinEvent>()
             .filter { it.player.allowFlight }
             .cancelOn { it.player.name == "cancelled name" } // will be kicked for "Event cancelled" if the name equals to "cancelled name"
-            .cancelWithMessage("your name contains illegal characters") {
+            .cancelOn("your name contains illegal characters") {
                 // will kick the player for "your name contains illegal characters" if the player's name contains "N"
                 it.player.name.contains("N")
             }
@@ -32,7 +32,7 @@ class EventsExamplePlugin : JavaPlugin()
                 // this will cancel the event if the player does not have the permission "events.break"
                 !it.player.hasPermission("events.break")
             }
-            .cancelWithMessage("you may not break blocks at Y level 50") {
+            .cancelOn("you may not break blocks at Y level 50") {
                 // will cancel the event if the Y coordinate is 50, and will
                 // send the player "you may not break blocks at Y level 50"
                 it.block.location.y == 50.0
