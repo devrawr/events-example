@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation 'com.github.devrawr:events:1b1fe1d14c'
+    implementation 'com.github.devrawr:events:5b283c4e1a'
 
     compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
 }
